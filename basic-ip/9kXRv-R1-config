@@ -1,0 +1,63 @@
+!! IOS XR Configuration version = 6.4.2
+!! Last configuration change at Tue Aug 21 18:12:02 2018 by admin
+!
+hostname 9kXRv-R1
+domain lookup disable
+username admin
+ group root-lr
+ group cisco-support
+ secret 5 $1$y3CE$PuZAR5IO247hcXoqkxn6S.
+!
+line console
+ exec-timeout 0 0
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method http
+ !
+!
+interface Loopback0
+ ipv4 address 50.1.1.11 255.255.255.255
+ ipv6 address 2001:50:1:1::1/128
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 192.168.200.111 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0.311
+ ipv4 address 50.3.11.11 255.255.255.0
+ ipv6 address 2001:50:3:11::11/64
+ encapsulation dot1q 311
+!
+interface GigabitEthernet0/0/0/0.411
+ ipv4 address 50.4.11.11 255.255.255.0
+ ipv6 address 2001:50:4:11::11/64
+ encapsulation dot1q 411
+!
+interface GigabitEthernet0/0/0/0.1112
+ ipv4 address 50.11.12.11 255.255.255.0
+ ipv6 address 2001:50:11:12::11/64
+ encapsulation dot1q 1112
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 50.1.11.11 255.255.255.0
+ ipv6 address 2001:50:1:11::11/64
+!
+interface GigabitEthernet0/0/0/2
+ shutdown
+!
+interface GigabitEthernet0/0/0/3
+ shutdown
+!
+interface GigabitEthernet0/0/0/4
+ shutdown
+!
+interface GigabitEthernet0/0/0/5
+ shutdown
+!
+interface GigabitEthernet0/0/0/6
+ shutdown
+!
+end
