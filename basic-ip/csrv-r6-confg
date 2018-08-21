@@ -1,0 +1,198 @@
+
+!
+! Last configuration change at 17:57:24 UTC Tue Aug 21 2018
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname CSRv-R6
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip admission watch-list expiry-time 0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2074205730
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2074205730
+ revocation-check none
+ rsakeypair TP-self-signed-2074205730
+!
+!
+crypto pki certificate chain TP-self-signed-2074205730
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32303734 32303537 3330301E 170D3138 30383230 31373030 
+  34335A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 30373432 
+  30353733 30308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100C3CF CE2CAC88 EDBE7127 DCB4DC24 2ED5CF78 86E0CAA3 3826523F 
+  89A3BD5B AD7AD2B3 7CD44339 8B51E710 CB849EC1 8550E227 C41CEBA6 16C17A23 
+  AC73741A 083F74AA E12C3D52 A873CA9F C9699480 E02E72EC E6D2D531 330D63AA 
+  F593ACF6 7EC756BB 314F4857 8C1434AA 02A7A95C CCE94DDF D0C35056 FB17D74D 
+  B1D53A65 28DE43B9 2AC85404 63F145E1 B03821D4 43001C36 43EB1F50 3BCA545C 
+  A6797663 40FAAB2E 789542F9 B41A9DC8 A22DCC19 444E9FA2 1B0C1619 42DF9FFC 
+  455BB84E 4E4FDCE5 CCA93132 BC9E0FA9 0F79FEB0 6042D896 AE035CB9 7425F21C 
+  53CFE658 E10CD517 C46B645A C373F44C A44D156A 19D8F097 6B9AFD9E 163272D1 
+  BA8365E4 C3270203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 145B20EF 0F58D8F3 9C29DBBE B18DAE3E DEF50F13 
+  A7301D06 03551D0E 04160414 5B20EF0F 58D8F39C 29DBBEB1 8DAE3EDE F50F13A7 
+  300D0609 2A864886 F70D0101 05050003 82010100 9DD5DC49 E38386F8 CAD28B52 
+  A10DA2C9 64C8F3A4 F8AB4516 AA59DBC6 6898DA05 45F97C79 435B023F D2216340 
+  B4034EC5 856975DA AD25EF1B 6545C3F6 FB73CC68 31DFC7FB AFECF017 9180D1A6 
+  7B2DABA8 CA0D7E2C AF0C7C84 65B074AE 1F491569 811EADED 82E7AFF5 BF7BA8A1 
+  EA58B70F 95A46647 43592E92 DDD000B0 4466B813 2CF78E00 13977C57 F9998E75 
+  892AD82A D6D10519 7FB38990 8380CDEB 06265551 2DCF81C8 539959F9 251CBA96 
+  91967619 A7474412 B4BA92E8 1E1AC449 31CE79DB 83214BD6 54CE0E03 ADC0C356 
+  2832B039 D5AC1E75 52368B13 39EF2ABE 675B3B70 0BC38F20 CC433315 A55EF50E 
+  300909F9 0EFD2360 AB674EDE B527073F 15FA9980
+  	quit
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9YKCCU3M3SJ
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 50.1.1.6 255.255.255.255
+ ipv6 address 2001:50:1:1::6/128
+!
+interface GigabitEthernet1
+ no ip address
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet1.46
+ encapsulation dot1Q 46
+ ip address 50.4.6.6 255.255.255.0
+ ipv6 address 2001:50:4:6::6/64
+!
+interface GigabitEthernet1.612
+ encapsulation dot1Q 612
+ ip address 50.6.12.6 255.255.255.0
+ ipv6 address 2001:50:6:12::6/64
+!
+interface GigabitEthernet1.613
+ encapsulation dot1Q 613
+ ip address 50.6.13.6 255.255.255.0
+ ipv6 address 2001:50:6:13::6/64
+!
+interface GigabitEthernet1.614
+ encapsulation dot1Q 614
+ ip address 50.6.14.6 255.255.255.0
+ ipv6 address 2001:50:6:14::6/64
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ ip address 192.168.200.106 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+no ip http server
+ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+!
+!
+!
+!
+end

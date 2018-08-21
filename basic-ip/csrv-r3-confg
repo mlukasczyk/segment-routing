@@ -1,0 +1,194 @@
+
+!
+! Last configuration change at 17:57:24 UTC Tue Aug 21 2018
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname CSRv-R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip admission watch-list expiry-time 0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+ipv6 unicast-routing
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-1988159356
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1988159356
+ revocation-check none
+ rsakeypair TP-self-signed-1988159356
+!
+!
+crypto pki certificate chain TP-self-signed-1988159356
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31393838 31353933 3536301E 170D3138 30383230 31343338 
+  35385A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 39383831 
+  35393335 36308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100AE04 319A230E 298864B9 08CEFDBF 7C01C437 DB8CE19E 868087B9 
+  83232862 50E3E148 47AA7313 505B632A 43592847 EFD74BA9 8AA1C0D2 A4FEFA2D 
+  CC5D6FAD E3D043DE 52D0F028 E3A8F2D7 1F0DA62A B6DE0B57 2155F337 30CCD604 
+  84C189EA B560AD68 640D85CE 2551C8A8 294B4AD3 67CC936A B7C80130 6F0E5FB3 
+  B558D413 B8A7351F D05755EA ADDC8105 AEFDEC5F 900A06DA DFE2CB1C 40E0E483 
+  515CB465 53FCD12A CD16D577 1A376B12 B74DCF90 89C8BA77 627F6E0F 3B5251DD 
+  3CD5C85F B112675E 9EA0FC6C 08162CE3 4EA25839 4ABF8612 DF51C0E8 5CC89070 
+  F0EB37CD 06D8EC9B 99FB2F68 1197725E 28BB84BC 64E7FF6F 2AC06B1D B2BA6F4A 
+  04087E0A B2F30203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 146E5E29 2C9F01A5 375D1088 62FF46DA 226127BD 
+  40301D06 03551D0E 04160414 6E5E292C 9F01A537 5D108862 FF46DA22 6127BD40 
+  300D0609 2A864886 F70D0101 05050003 82010100 1D4C82BD 121358BC 55232EA0 
+  C5005509 ACEC0B18 683D7115 AC1285C0 0E18623A 5DBDE822 F1E1A7F0 FD9B05D0 
+  25EA2561 720F91B9 5D0C364D 8D6AF2D5 6544CA1E 5BF372EA 5CE94070 E1B2E56F 
+  540D4BE8 5771FD33 BEAA2D54 BA1A20EE AFD596B9 FE572691 466F444A BAD59A37 
+  296E0E5A D3F613EB 28013C9C C8FEE711 EFD4EC23 246771BE 84604C64 7A1EED1C 
+  12D1FF49 EC178F0C 806A269D CB5209EC 108123C3 03AA7A95 C7F35D3E 27B3B231 
+  90260326 553759C6 6FD5A966 DCAA31EB 14DD4DB1 59970859 02C80CF2 3EB8A21C 
+  7304764B EF62EBE2 A8D908FD A4141690 03239F91 B01EAD3A 14C4D7B2 EF7D4C08 
+  F24344E5 576926C9 B56012AD 0E93CBD5 5299841D
+  	quit
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9DC4B3E1FQ5
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 50.1.1.3 255.255.255.255
+ ipv6 address 2001:50:1:1::3/128
+!
+interface GigabitEthernet1
+ no ip address
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet1.35
+ encapsulation dot1Q 35
+ ip address 50.3.5.3 255.255.255.0
+ ipv6 address 2001:50:3:5::3/64
+!
+interface GigabitEthernet1.311
+ encapsulation dot1Q 311
+ ip address 50.3.11.3 255.255.255.0
+ ipv6 address 2001:50:3:11::3/64
+!
+interface GigabitEthernet1.312
+ encapsulation dot1Q 312
+ ip address 50.3.12.3 255.255.255.0
+ ipv6 address 2001:50:3:12::3/64
+!
+interface GigabitEthernet2
+ ip address 50.2.13.3 255.255.255.0
+ negotiation auto
+ ipv6 address 2001:50:2:13::3/64
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ ip address 192.168.200.103 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+no ip http server
+ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+!
+!
+!
+!
+end
