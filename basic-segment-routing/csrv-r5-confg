@@ -1,0 +1,247 @@
+
+!
+! Last configuration change at 12:17:48 UTC Wed Aug 22 2018
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname CSRv-R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip admission watch-list expiry-time 0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+mpls traffic-eng tunnels
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-255813770
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-255813770
+ revocation-check none
+ rsakeypair TP-self-signed-255813770
+!
+!
+crypto pki certificate chain TP-self-signed-255813770
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32353538 31333737 30301E17 0D313830 38323031 37303034 
+  335A170D 33303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3235 35383133 
+  37373030 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 B6AF8BF2 2471A4ED D04B336F 5A1C1AD4 41BEC7CB 3980EB03 962E03CC 
+  B4AC62BC DE6C87FD 5BE623FB 89C74CF3 21B4C7D5 C10C06D9 1CAE9095 4B5AF40E 
+  DE437CE2 1622EAE6 7FE3FD5C A77A5BA4 C07EA738 9AA9A836 17967FEC 64BBDF57 
+  3C2D447D 31432B29 68D37EA6 677D0035 9C912BBD 72493F7D A9B04480 30571952 
+  058DD0F4 A7442FC3 181C375D 8642A76C B0DF3B88 C829E183 A8403D95 EF2CA459 
+  2209953D AF938B56 CFC03772 396B2FA8 90BB1796 515BA117 B2E74981 7A112F5F 
+  A3DE62A1 FB51418F B691197D B1562086 9D5FD26C 15C3907C B9D23B7A 9E983B14 
+  FECBBD3F B92A72BB 4F11906A 7947DB5B 42D32BD9 DEC9DAE3 A76DC585 2E5D646B 
+  D22DA25B 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 
+  0603551D 23041830 1680145D B0A5E38B 65C257E2 CC63E16A CBD11944 F36F0030 
+  1D060355 1D0E0416 04145DB0 A5E38B65 C257E2CC 63E16ACB D11944F3 6F00300D 
+  06092A86 4886F70D 01010505 00038201 01000B95 67B4F4BB 5D80DD20 C45B3E13 
+  5CE0BA06 682E0A4E 479C6694 81A7CCAF 9276C195 5ED563A8 F65EBACB F4773304 
+  3BCA552D 2919256D 4251D005 5AAB929E FB33CE86 E42BD84C 5565C75A E061FB9C 
+  E9BF6D64 4B3D0130 ECA561EA 50E86342 90F6FBED AB4F97B8 A38EEDE7 E088051A 
+  F3595589 DE68D6D1 330083E4 C4EA4727 2767CEBF DA649B49 BCC1A9CE 281159D4 
+  A37576E9 635DB0B9 92BD1163 86E44690 6AF24E74 38F1651D BD1BD11D 48ECF876 
+  ADFAFF91 1E11BBCF 723828E0 3EF52A29 65C88552 67D5CF05 FDF97148 6661AA47 
+  20709D42 E0AA6EF8 F809ED33 DB4BA625 CC774BCD 735EA004 E668BB2F B7329FA4 
+  45DC669A 14D38EA2 8CD175E0 CFF159AC 21E3
+  	quit
+!
+!
+segment-routing mpls
+ !
+ set-attributes
+  address-family ipv4
+   sr-label-preferred
+  exit-address-family
+ !
+ !
+ connected-prefix-sid-map
+  address-family ipv4
+   50.1.1.5/32 index 500 range 1 
+  exit-address-family
+ !
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9OCP1WIDFGW
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 50.1.1.5 255.255.255.255
+ ipv6 address 2001:50:1:1::5/128
+!
+interface GigabitEthernet1
+ no ip address
+ negotiation auto
+ no mop enabled
+ no mop sysid
+ ip rsvp bandwidth
+!
+interface GigabitEthernet1.35
+ encapsulation dot1Q 35
+ ip address 50.3.5.5 255.255.255.0
+ ip router isis 1
+ ipv6 address 2001:50:3:5::5/64
+ mpls traffic-eng tunnels
+ isis circuit-type level-2-only
+ isis network point-to-point 
+ ip rsvp bandwidth
+!
+interface GigabitEthernet1.512
+ encapsulation dot1Q 512
+ ip address 50.5.12.5 255.255.255.0
+ ip router isis 1
+ ipv6 address 2001:50:5:12::5/64
+ mpls traffic-eng tunnels
+ isis circuit-type level-2-only
+ isis network point-to-point 
+ ip rsvp bandwidth
+!
+interface GigabitEthernet1.513
+ encapsulation dot1Q 513
+ ip address 50.5.13.5 255.255.255.0
+ ip router isis 1
+ ipv6 address 2001:50:5:13::5/64
+ mpls traffic-eng tunnels
+ isis circuit-type level-2-only
+ isis network point-to-point 
+ ip rsvp bandwidth
+!
+interface GigabitEthernet1.515
+ encapsulation dot1Q 515
+ ip address 50.5.15.5 255.255.255.0
+ ip router isis 1
+ ipv6 address 2001:50:5:15::5/64
+ mpls traffic-eng tunnels
+ isis circuit-type level-2-only
+ isis network point-to-point 
+ ip rsvp bandwidth
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ ip address 192.168.200.105 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+router isis 1
+ net 49.0001.0000.0000.0005.00
+ is-type level-2-only
+ router-id Loopback0
+ metric-style wide
+ segment-routing mpls
+ passive-interface Loopback0
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng level-2
+ mpls ldp autoconfig level-2
+!
+ip forward-protocol nd
+no ip http server
+ip http secure-server
+!
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+!
+!
+!
+!
+end
