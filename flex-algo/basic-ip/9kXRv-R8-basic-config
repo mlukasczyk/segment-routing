@@ -1,0 +1,71 @@
+!! IOS XR Configuration version = 6.5.1
+!! Last configuration change at Wed Oct 31 16:47:47 2018 by admin
+!
+hostname 9kXRv-8
+username admin
+ group root-lr
+ group cisco-support
+ secret 5 $1$gw6w$TgW96guFMknypbTumlhYx/
+!
+line console
+ exec-timeout 0 0
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method http
+ !
+!
+interface Loopback0
+ ipv4 address 50.1.1.8 255.255.255.255
+ ipv6 address 2001:50:1:1::8/128
+!
+interface MgmtEth0/RP0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0.18
+ ipv4 address 50.1.8.8 255.255.255.0
+ ipv6 address 2001:50:1:8::8/64
+ encapsulation dot1q 18
+!
+interface GigabitEthernet0/0/0/0.68
+ ipv4 address 50.6.8.8 255.255.255.0
+ ipv6 address 2001:50:6:8::8/64
+ encapsulation dot1q 68
+!
+interface GigabitEthernet0/0/0/0.78
+ ipv4 address 50.7.8.8 255.255.255.0
+ ipv6 address 2001:50:7:8::8/64
+ encapsulation dot1q 78
+!
+interface GigabitEthernet0/0/0/0.89
+ ipv4 address 50.8.9.8 255.255.255.0
+ ipv6 address 2001:50:8:9::8/64
+ encapsulation dot1q 89
+!
+interface GigabitEthernet0/0/0/0.810
+ ipv4 address 50.8.10.8 255.255.255.0
+ ipv6 address 2001:50:8:10::8/64
+ encapsulation dot1q 810
+!
+interface GigabitEthernet0/0/0/1
+ shutdown
+!
+interface GigabitEthernet0/0/0/2
+ shutdown
+!
+interface GigabitEthernet0/0/0/3
+ ipv4 address 192.168.200.108 255.255.255.0
+!
+interface GigabitEthernet0/0/0/4
+ shutdown
+!
+interface GigabitEthernet0/0/0/5
+ shutdown
+!
+interface GigabitEthernet0/0/0/6
+ shutdown
+!
+end

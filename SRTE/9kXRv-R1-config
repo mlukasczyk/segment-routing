@@ -1,0 +1,184 @@
+!! IOS XR Configuration version = 6.5.1
+!! Last configuration change at Fri Nov  2 12:05:34 2018 by admin
+!
+hostname 9kXRv-R1
+logging console debugging
+vrf CUST1
+ address-family ipv4 unicast
+  import route-target
+   1:1
+  !
+  export route-target
+   1:1
+  !
+ !
+ address-family ipv6 unicast
+  import route-target
+   1:1
+  !
+  export route-target
+   1:1
+  !
+ !
+!
+address-family ipv4 unicast
+!
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 50.1.1.1 255.255.255.255
+ ipv6 address 2001:50:1:1::1/128
+!
+interface GigabitEthernet0/0/0/0.16
+ ipv4 address 50.1.6.1 255.255.255.0
+ ipv6 address 2001:50:1:6::1/64
+ encapsulation dot1q 16
+!
+interface GigabitEthernet0/0/0/0.17
+ ipv4 address 50.1.7.1 255.255.255.0
+ ipv6 address 2001:50:1:7::1/64
+ encapsulation dot1q 17
+!
+interface GigabitEthernet0/0/0/0.18
+ ipv4 address 50.1.8.1 255.255.255.0
+ ipv6 address 2001:50:1:8::1/64
+ encapsulation dot1q 18
+!
+interface GigabitEthernet0/0/0/1
+ vrf CUST1
+ ipv4 address 50.1.9.1 255.255.255.0
+ ipv6 address 2001:50:1:9::1/64
+!
+interface GigabitEthernet0/0/0/3
+ ipv4 address 192.168.200.101 255.255.255.0
+!
+router isis 1
+ is-type level-2-only
+ net 49.0001.0000.0000.0001.00
+ distribute link-state
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls sr-prefer
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid index 1
+  !
+ !
+ interface GigabitEthernet0/0/0/0.16
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+ interface GigabitEthernet0/0/0/0.17
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+ interface GigabitEthernet0/0/0/0.18
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+!
+router bgp 1
+ bgp router-id 50.1.1.1
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ neighbor 50.1.1.8
+  remote-as 1
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+  address-family vpnv6 unicast
+  !
+ !
+ vrf CUST1
+  rd 1:1
+  address-family ipv4 unicast
+   redistribute eigrp 1
+  !
+  address-family ipv6 unicast
+   redistribute eigrp 1
+  !
+ !
+!
+mpls oam
+!
+segment-routing
+ traffic-eng
+  segment-list R1_R7_R9
+   index 10 address ipv4 50.1.1.7
+   index 20 address ipv4 50.1.1.9
+  !
+  segment-list R1_R7_R10_R9
+   index 10 address ipv4 50.1.1.7
+   index 20 address ipv4 50.1.1.10
+   index 30 address ipv4 50.1.1.9
+  !
+  segment-list ANYCAST_TO_R9
+   index 10 address ipv4 50.1.1.186
+   index 20 address ipv4 50.1.1.9
+  !
+  policy POLICY1
+   binding-sid mpls 1000
+   color 1 end-point ipv4 50.1.1.9
+   candidate-paths
+    preference 10
+     explicit segment-list R1_R7_R9
+      weight 4
+     !
+     explicit segment-list R1_R7_R10_R9
+     !
+    !
+    preference 100
+     dynamic
+      metric
+       type te
+      !
+     !
+    !
+   !
+  !
+  policy POLICY2
+   color 2 end-point ipv4 50.1.1.9
+   candidate-paths
+    preference 10
+     explicit segment-list ANYCAST_TO_R9
+     !
+    !
+   !
+  !
+  affinity-map
+   color RED bit-position 0
+   color GREEN bit-position 1
+  !
+ !
+!
+router eigrp 1
+ vrf CUST1
+  address-family ipv4
+   autonomous-system 1
+   redistribute bgp 1
+   interface GigabitEthernet0/0/0/1
+   !
+  !
+  address-family ipv6
+   autonomous-system 1
+   redistribute bgp 1
+   interface GigabitEthernet0/0/0/1
+   !
+  !
+ !
+!
+performance-measurement
+ interface GigabitEthernet0/0/0/0.17
+  delay-measurement
+  !
+ !
+!
+end

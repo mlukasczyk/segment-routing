@@ -1,0 +1,148 @@
+!! IOS XR Configuration version = 6.5.1
+!! Last configuration change at Fri Nov  2 11:59:12 2018 by admin
+!
+hostname 9kXRv-8
+username admin
+ group root-lr
+ group cisco-support
+ secret 5 $1$gw6w$TgW96guFMknypbTumlhYx/
+!
+line console
+ exec-timeout 0 0
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method http
+ !
+!
+interface Loopback0
+ ipv4 address 50.1.1.8 255.255.255.255
+ ipv6 address 2001:50:1:1::8/128
+!
+interface Loopback1
+ ipv4 address 50.1.1.186 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0.18
+ ipv4 address 50.1.8.8 255.255.255.0
+ ipv6 address 2001:50:1:8::8/64
+ encapsulation dot1q 18
+!
+interface GigabitEthernet0/0/0/0.68
+ ipv4 address 50.6.8.8 255.255.255.0
+ ipv6 address 2001:50:6:8::8/64
+ encapsulation dot1q 68
+!
+interface GigabitEthernet0/0/0/0.78
+ ipv4 address 50.7.8.8 255.255.255.0
+ ipv6 address 2001:50:7:8::8/64
+ encapsulation dot1q 78
+!
+interface GigabitEthernet0/0/0/0.89
+ ipv4 address 50.8.9.8 255.255.255.0
+ ipv6 address 2001:50:8:9::8/64
+ encapsulation dot1q 89
+!
+interface GigabitEthernet0/0/0/0.810
+ ipv4 address 50.8.10.8 255.255.255.0
+ ipv6 address 2001:50:8:10::8/64
+ encapsulation dot1q 810
+!
+interface GigabitEthernet0/0/0/1
+ shutdown
+!
+interface GigabitEthernet0/0/0/2
+ shutdown
+!
+interface GigabitEthernet0/0/0/3
+ ipv4 address 192.168.200.108 255.255.255.0
+!
+interface GigabitEthernet0/0/0/4
+ shutdown
+!
+interface GigabitEthernet0/0/0/5
+ shutdown
+!
+interface GigabitEthernet0/0/0/6
+ shutdown
+!
+router isis 1
+ is-type level-2-only
+ net 49.0001.0000.0000.0008.00
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls sr-prefer
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid index 8
+  !
+ !
+ interface Loopback1
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16800 n-flag-clear
+  !
+ !
+ interface GigabitEthernet0/0/0/0.18
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+ interface GigabitEthernet0/0/0/0.68
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+ interface GigabitEthernet0/0/0/0.78
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+ interface GigabitEthernet0/0/0/0.89
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+ interface GigabitEthernet0/0/0/0.810
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+!
+router bgp 1
+ bgp router-id 50.1.1.8
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ neighbor 50.1.1.1
+  remote-as 1
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-reflector-client
+  !
+  address-family vpnv6 unicast
+   route-reflector-client
+  !
+ !
+ neighbor 50.1.1.9
+  remote-as 1
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-reflector-client
+  !
+  address-family vpnv6 unicast
+   route-reflector-client
+  !
+ !
+!
+segment-routing
+!
+end

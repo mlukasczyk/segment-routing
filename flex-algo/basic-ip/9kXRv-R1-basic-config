@@ -1,0 +1,30 @@
+!! IOS XR Configuration version = 6.5.1
+!! Last configuration change at Wed Oct 31 16:46:39 2018 by admin
+!
+hostname 9kXRv-R1
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 50.1.1.1 255.255.255.255
+ ipv6 address 2001:50:1:1::1/128
+!
+interface GigabitEthernet0/0/0/0.16
+ ipv4 address 50.1.6.1 255.255.255.0
+ ipv6 address 2001:50:1:6::1/64
+ encapsulation dot1q 16
+!
+interface GigabitEthernet0/0/0/0.17
+ ipv4 address 50.1.7.1 255.255.255.0
+ ipv6 address 2001:50:1:7::1/64
+ encapsulation dot1q 17
+!
+interface GigabitEthernet0/0/0/0.18
+ ipv4 address 50.1.8.1 255.255.255.0
+ ipv6 address 2001:50:1:8::1/64
+ encapsulation dot1q 18
+!
+interface GigabitEthernet0/0/0/3
+ ipv4 address 192.168.200.101 255.255.255.0
+!
+end

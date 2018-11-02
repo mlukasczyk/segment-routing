@@ -1,0 +1,198 @@
+
+!
+! Last configuration change at 12:24:55 UTC Fri Nov 2 2018
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R9
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip admission watch-list expiry-time 0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+ipv6 unicast-routing
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-1653919021
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1653919021
+ revocation-check none
+ rsakeypair TP-self-signed-1653919021
+!
+!
+crypto pki certificate chain TP-self-signed-1653919021
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31363533 39313930 3231301E 170D3138 31303331 31373433 
+  31335A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 36353339 
+  31393032 31308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100A877 A2925683 9B3A7260 2DD0A366 5D0CC692 D6C67AF0 5E1B132D 
+  1720B433 D420A7B7 3EEE4806 83B76EE3 9E8C8719 CA7397A9 30764C58 748AAE2D 
+  B2073197 34BD9EFD 888073E8 F92DC311 DC6A33B3 D270C92C FE27F135 29EE0766 
+  9603BA3A FE3FCBB8 606E3864 E71A39E0 B25290FF A8AAB1E8 67FF157F 5DFE5387 
+  1E6A9890 9268AAEA 58993767 9FBDE8FB E3AD13D6 7D1184BD 74754729 A50CF1EB 
+  20363895 4148A355 C1311E33 997CFD19 AF2BC37E 916458E6 F7A83A3C 7AF1733B 
+  49C55F1C AFF32021 4E1B7C9E 006BAF73 90F3EC9D C21B821E BA910BFD B61F7630 
+  C336E646 89CF0097 25C431C8 9DBE65DE AC700880 882B022D 884FDFCC 6ECEC19A 
+  0BF59B7F 7F030203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 14EEC507 DA1D7D4F 5CB29045 9F5DDA30 90AB711E 
+  3E301D06 03551D0E 04160414 EEC507DA 1D7D4F5C B290459F 5DDA3090 AB711E3E 
+  300D0609 2A864886 F70D0101 05050003 82010100 8C39321A 6C0A72BD BEABC00B 
+  092F9B0C F2D5A26D 5F6E8EC9 64E683E3 86E30BED 881C1C38 9BC65E55 D403734F 
+  3EE72396 940B8291 899C5E02 9DDAC84C EF8515E5 E976B80D 413F63C6 08017BC4 
+  0A54EBC8 B9B20226 CCA363AD 2BAA7570 FF129A1B C9E8AC49 92010DF8 889E4C1C 
+  2D9A0825 332F6539 1AA58B20 2DA28D43 8EB7C84C EB03E4C0 3712E16B 2750E092 
+  5785BA90 27A62122 54A7163E 37CBE352 2FB91459 C7FD1B8D A0A18C5F A239EC87 
+  399A4903 7E92086D 4AD9CC81 477BF874 0BAC675A 6241AA64 61B66D9E 3A547365 
+  2A871462 A481C9D0 4E37AE71 47E0D1E5 91E94563 F32CBA65 EAD03849 C322E6DA 
+  299B34B2 66081C29 5791953E 6AF322A0 A1A86662
+  	quit
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 92XJR3Y127F
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 50.1.1.99 255.255.255.255
+ ipv6 address 2001:50:1:1::99/128
+!
+interface GigabitEthernet1
+ no ip address
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ ip address 50.1.9.9 255.255.255.0
+ negotiation auto
+ ipv6 address 2001:50:1:9::9/64
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ ip address 192.168.200.209 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+!
+router eigrp A
+ !
+ address-family ipv4 unicast autonomous-system 1
+  !
+  topology base
+  exit-af-topology
+  network 50.1.1.99 0.0.0.0
+  network 50.1.9.0 0.0.0.255
+ exit-address-family
+ !
+ address-family ipv6 unicast autonomous-system 1
+  !
+  topology base
+  exit-af-topology
+ exit-address-family
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+!
+!
+!
+!
+end
